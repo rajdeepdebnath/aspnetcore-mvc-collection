@@ -38,10 +38,4 @@ namespace WebApplication4.Controllers
         public string Description { get; set; }
         public int[] ImageIdArr { get; set; }
     }
-
-    public class EditProductModel
-    {
-        public List<Product> productList { get; set; }
-        public string[] DeleteImageIdArr { get; set; }
-    }
 }
