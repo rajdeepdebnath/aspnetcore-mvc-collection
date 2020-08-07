@@ -65,6 +65,8 @@
                 $('#DeleteImageIdArr').val(JSON.stringify(arr))
 
                 console.log($('#DeleteImageIdArr').val());
+                console.log(v.target.hidden);
+                v.target.hidden = true;
             });
 
             $.ajax();
