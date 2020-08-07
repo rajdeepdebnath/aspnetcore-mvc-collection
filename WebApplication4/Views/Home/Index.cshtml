@@ -1,0 +1,73 @@
+﻿@model List<WebApplication4.Controllers.Product>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+@using (Html.BeginForm("Edit", "Home", FormMethod.Post))
+{
+    if (Model != null)
+    {
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Desc</th>
+                    <th>Images</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (int i = 0; i < Model.Count; i++)
+                {
+                    var product = Model[i];
+                    var id = $"product[{i}].Id";
+                    var name = $"product[{i}].Name";
+                    var description = $"product[{i}].Description";
+
+                    <tr>
+                        <td>@product.Id<input type="hidden" value="@product.Id" name='@id' /></td>
+                        <td><input type="text" value="@product.Name" name='@name' /></td>
+                        <td><input type="text" value="@product.Description" name='@description' /></td>
+                        <td>
+                            @foreach (var image in product.ImageIdArr)
+                            {
+                                <span class="image" data-imageid="@image" style="display:inline-block;width:20px;height:20px;background-color:darkseagreen;">😊</span>
+                            }
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+        </table>
+        <input type="hidden" value="[]" name="DeleteImageIdArr" id="DeleteImageIdArr" />
+        <input type="submit" value="submit" />
+    }
+}
+
+@section Scripts{
+
+
+    <script>
+        $(document).ready(function () {
+
+            $('.image').click(function (v) {
+                console.log(v);
+                console.log(v.target.dataset.imageid);
+                var arr = [];
+                arr = JSON.parse($('#DeleteImageIdArr').val());
+                console.log(Array.isArray(arr));
+
+                if (arr.indexOf(v.target.dataset.imageid) < 0) {
+                    arr.push(v.target.dataset.imageid);
+                }
+
+                $('#DeleteImageIdArr').val(JSON.stringify(arr))
+
+                console.log($('#DeleteImageIdArr').val());
+            });
+
+            $.ajax();
+        });
+    </script>
+}
